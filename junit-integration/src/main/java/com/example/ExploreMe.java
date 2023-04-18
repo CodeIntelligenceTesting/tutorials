@@ -1,5 +1,6 @@
 package com.example;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Base64;
 
 public class ExploreMe {
@@ -15,6 +16,21 @@ public class ExploreMe {
                 if (b - a < 100000) {
                     if (c.equals("Attacker")) {
                        mustNeverBeCalled();
+                    }
+                }
+            }
+        }
+    }
+
+    public void exploreRCE(int b, String c, String cls) {
+        if (a >= 20000) {
+            if (b >= 2000000) {
+                if (b - a < 100000) {
+                    if (c.equals("Attacker")) {
+                        try {
+                            Class.forName(cls).getConstructor().newInstance();
+                        } catch (Exception ignored) {
+                        }
                     }
                 }
             }

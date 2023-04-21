@@ -1,0 +1,27 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '+'
+	id 'io.spring.dependency-management' version '+'
+	id "com.code-intelligence.cifuzz" version "1.0.0"
+}
+
+group = 'com.spring_fuzzing'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.mockito:mockito-testng:0.4.30'
+	implementation 'org.springframework:spring-core:+'
+	implementation group: 'org.springframework.data', name: 'spring-data-mongodb', version: '4.0.5'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+	testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.2.0'
+	implementation group: 'org.mongodb', name: 'mongo-java-driver', version: '3.12.12'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

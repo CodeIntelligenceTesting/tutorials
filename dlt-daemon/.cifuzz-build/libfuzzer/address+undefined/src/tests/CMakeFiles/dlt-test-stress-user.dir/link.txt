@@ -1,1 +1,0 @@
-/usr/bin/clang -O2 -g -DNDEBUG -fsanitize=address -fsanitize=undefined CMakeFiles/dlt-test-stress-user.dir/dlt-test-stress-user.c.o -o dlt-test-stress-user  -Wl,-rpath,"\$ORIGIN/../lib:" ../lib/libdlt.so.2.18.5 -lrt -lpthread 

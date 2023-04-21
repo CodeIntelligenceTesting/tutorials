@@ -1,1 +1,0 @@
-/usr/bin/clang -O2 -g -DNDEBUG -fsanitize=address -fsanitize=undefined CMakeFiles/dlt-test-fork-handler.dir/dlt-test-fork-handler.c.o -o dlt-test-fork-handler  -Wl,-rpath,"\$ORIGIN/../lib:" ../lib/libdlt.so.2.18.5 -lrt -lpthread 

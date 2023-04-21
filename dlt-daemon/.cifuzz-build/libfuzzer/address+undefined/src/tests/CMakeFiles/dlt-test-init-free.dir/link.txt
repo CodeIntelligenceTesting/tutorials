@@ -1,1 +1,0 @@
-/usr/bin/clang -O2 -g -DNDEBUG -fsanitize=address -fsanitize=undefined CMakeFiles/dlt-test-init-free.dir/dlt-test-init-free.c.o -o dlt-test-init-free  -Wl,-rpath,"\$ORIGIN/../lib:" ../lib/libdlt.so.2.18.5 -lrt -lpthread 

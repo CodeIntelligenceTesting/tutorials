@@ -1,0 +1,1 @@
+/usr/bin/clang -O2 -g -DNDEBUG -fsanitize=address -fsanitize=undefined CMakeFiles/dlt-test-non-verbose.dir/dlt-test-non-verbose.c.o -o dlt-test-non-verbose  -Wl,-rpath,"\$ORIGIN/../lib:" ../lib/libdlt.so.2.18.5 -lrt -lpthread 

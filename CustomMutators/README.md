@@ -69,6 +69,35 @@ while maintaining its validity. This enables fuzzers to explore a broader
 range of code paths in the target application, increasing the chances of
 discovering security vulnerabilities that may otherwise remain hidden.
 
+## Caveats
+
+Custom mutators, while offering significant potential for improving the
+effectiveness of fuzzing, come with their own set of caveats that users
+should be aware of before investing time and resources into developing one.
+One of the most notable drawbacks is the potential decrease in execution speed.
+Custom mutators often involve more complex and computationally expensive
+operations compared to the default mutators provided by fuzzing engines.
+As a result, the overall fuzzing throughput can be negatively impacted,
+leading to fewer executions per second and a slower discovery of vulnerabilities
+or other metrics such as code coverage. It is essential to balance the
+complexity of the custom mutator with the performance impact on the fuzzing
+process.
+
+Another concern when developing custom mutators is the time investment required.
+Building a custom mutator tailored to a specific target often demands a deep
+understanding of the input format and the application's logic, which can be
+time-consuming. Additionally, the effectiveness of custom mutators is often
+closely tied to the quality of the seed corpus.
+A well-crafted seed corpus can significantly enhance the efficiency of custom
+mutators by providing a solid foundation of diverse and representative inputs.
+On the other hand, a poor seed corpus may limit the custom mutator's ability to
+explore the target application's logic effectively, leading to suboptimal results.
+This however, applies even more to having no custom mutator and only relying on
+random byte mutation for targets with highly structured inputs.
+It is crucial to invest time in understanding the target application and building
+a comprehensive seed corpus to maximize the benefits of custom mutators while
+being aware of the potential trade-offs in terms of performance and time investment.
+
 ## Advanced
 
 [cifuzz](https://github.com/CodeIntelligenceTesting/cifuzz) uses [libfuzzer](https://www.llvm.org/docs/LibFuzzer.html) internally. LibFuzzer is a popular in-process,
@@ -89,7 +118,7 @@ extern "C" size_t LLVMFuzzerCustomMutator(uint8_t *data, size_t size, size_t max
   // Initialize the PNG structures with custom error handling
   png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
   png_infop info_ptr = png_create_info_struct(png_ptr);
-  
+
   // Set up the custom read function to read from the data buffer
   png_set_read_fn(png_ptr, &data, custom_read_function);
 

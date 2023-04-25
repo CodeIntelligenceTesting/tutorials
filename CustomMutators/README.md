@@ -165,12 +165,12 @@ Simply run:
 
 ```sh
 # For the default version
-./build.sh
+./build.sh -m 0
 
 # or for the custom mutator
-./build.sh custom
+./build.sh -m 1
 ```
 
 If you want to inspect the fuzz test you can checkout `BUILD/my_fuzz_test_1.cpp`.
-Similarly, the custom mutator is available under `BUILD/png_mutator.cpp`.
+Similarly, the custom mutator is available under `png_mutator.cpp`.
 Note, these files are only present after you ran `./build.sh` once.

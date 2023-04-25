@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-MODE=regular
+MODE=0
 
 while (("$#")); do
 	case "$1" in
@@ -27,31 +27,41 @@ LIBPNG=libpng-${LIBPNG_VERSION}
 [ ! -e "${LIBPNG}" ] && tar xf "${LIBPNG}.tar.xz"
 
 build_libpng() {
+	echo "[+] Building target library"
 	rm -rf BUILD
 	cp -rf "${LIBPNG}" BUILD
 	cd BUILD &&
-		wget -qO png_mutator.cpp https://raw.githubusercontent.com/google/fuzzer-test-suite/master/libpng-1.2.56/png_mutator.h &&
+		cp ../png_mutator.cpp . &&
 		init_cifuzz &&
 		./configure --disable-shared &>/dev/null &&
 		make -j"$(nproc)" &>/dev/null
 }
 
 init_cifuzz() {
-	cifuzz init
-	patch CMakeLists.txt <../cifuzz_enable.patch
-	cifuzz create cpp
-	patch my_fuzz_test_1.cpp <../fuzz_test.patch
+	echo "[+] Initializing cifuzz and patching fuzz test"
+	cifuzz init &>/dev/null &&
+		patch CMakeLists.txt <../cifuzz_enable.patch &>/dev/null &&
+		cifuzz create cpp &>/dev/null &&
+		patch my_fuzz_test_1.cpp <../fuzz_test.patch &>/dev/null
 }
 
 run_cifuzz() {
-	if [ "$1" == "regular" ]; then
+	echo "[+] Running cifuzz"
+	if [ "$1" -eq 0 ]; then
 		echo "[>] Using default settings"
 		sed -i '/add_fuzz_test/s/^#*//;/png_mutator/s/^#*/#/' CMakeLists.txt
 	else
 		echo "[>] Using custom mutator settings"
 		sed -i '/add_fuzz_test/s/^#*/#/;/png_mutator/s/^#*//' CMakeLists.txt
 	fi
-	cifuzz run my_fuzz_test_1
+	(
+		mkdir seed-corpus &&
+			pushd seed-corpus &>/dev/null &&
+			wget -qO 1.png https://github.com/dvyukov/go-fuzz-corpus/raw/master/png/corpus/0027e9c17f97bc035782fee6b4c725abb5e25f5f-2 &&
+			popd &>/dev/null
+	)
+
+	CC="$(which clang)" CXX="$(which clang++)" cifuzz run my_fuzz_test_1 -s seed-corpus
 
 }
 

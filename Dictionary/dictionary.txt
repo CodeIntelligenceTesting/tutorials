@@ -1,0 +1,6 @@
+# More information can be found here:
+# https://llvm.org/docs/LibFuzzer.html#dictionaries
+
+string="Guess this String!"
+# Make sure to use correct endianess
+hex="\x07\xB1\x6D\xE2"

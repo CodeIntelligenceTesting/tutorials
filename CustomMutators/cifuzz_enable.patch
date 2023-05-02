@@ -1594,7 +1594,7 @@
 -# lib /def:libpng.def /machine:x86
 +add_fuzz_test(my_fuzz_test_1 my_fuzz_test_1.cpp)
 +# add_fuzz_test(my_fuzz_test_1 my_fuzz_test_1.cpp png_mutator.cpp)
-+target_link_libraries(my_fuzz_test_1 PRIVATE ${ZLIB_LIBRARY} ${M_LIBRARY} png16)
++target_link_libraries(my_fuzz_test_1 PRIVATE ${ZLIB_LIBRARY} ${M_LIBRARY} ${CMAKE_CURRENT_SOURCE_DIR}/.libs/libpng16.a)
 +target_include_directories(my_fuzz_test_1 PRIVATE .)
 +target_compile_options(my_fuzz_test_1 PRIVATE)
 +

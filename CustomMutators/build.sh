@@ -2,12 +2,18 @@
 set -e
 
 MODE=0
+BUILD_DIR="BUILD"
 
 while (("$#")); do
 	case "$1" in
 	-m | --mode)
 		# Sets the mode
 		MODE=$2
+		shift 2
+		;;
+	-b | --build_dir)
+		# Sets the build dir
+		BUILD_DIR=$2
 		shift 2
 		;;
 	-*)
@@ -28,9 +34,9 @@ LIBPNG=libpng-${LIBPNG_VERSION}
 
 build_libpng() {
 	echo "[+] Building target library"
-	rm -rf BUILD
-	cp -rf "${LIBPNG}" BUILD
-	cd BUILD &&
+	rm -rf "$BUILD_DIR"
+	cp -rf "${LIBPNG}" "$BUILD_DIR"
+	cd "$BUILD_DIR" &&
 		cp ../png_mutator.cpp . &&
 		init_cifuzz &&
 		./configure --disable-shared &>/dev/null &&

@@ -27,7 +27,7 @@ Delete corpus:
 
 Run with dictionary:
 ```
-cifuzz run dictionary_example --engine-arg="-dict=dictionary.txt"
+cifuzz run dictionary_example --dict="dictionary.txt"
 ```
 
 You can also enable value profile or the use of a dictionary in the cifuzz.yaml file.

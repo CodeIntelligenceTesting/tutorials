@@ -1,4 +1,5 @@
 # README
+This example shows how disabling certain checks in the software under test can benefit a fuzz test. The function under tests expects the inputs to contain valid crc32 checksums. It can be difficult for the fuzzer to generate inputs with a correct checksum. While one solution for it might be creating a custom mutator, another solution is to just disable these checks since the goal of this fuzz test is not checking the crc32 checksum calculator.
 
 Run fuzz test with:
 ```

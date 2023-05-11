@@ -1,5 +1,13 @@
 # README
 
+This example shows how the usage of a dictionary can improve the results of a fuzz test. First the fuzz test will be executed without without a dictionary and without value_profile. Afterwards it is shown how dictionaries and value_profile can help the fuzzing engine to improve code coverage and uncover more bugs.
+
+## Requirements
+This tutorial has the following requirements:
+- [CI Fuzz](https://github.com/CodeIntelligenceTesting/cifuzz)
+- CMake
+
+## Running this example
 Run fuzz test with:
 ```
 cifuzz run dictionary_example

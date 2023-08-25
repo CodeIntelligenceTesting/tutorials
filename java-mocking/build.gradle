@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '+'
 	id 'io.spring.dependency-management' version '+'
-	id "com.code-intelligence.cifuzz" version "1.0.0"
+	id "com.code-intelligence.cifuzz" version "1.4.0"
 }
 
 group = 'com.spring_fuzzing'
